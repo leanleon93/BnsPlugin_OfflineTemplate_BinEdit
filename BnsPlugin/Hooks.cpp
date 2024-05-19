@@ -59,6 +59,9 @@ bool __fastcall hkBInputKey(BInputKey* thisptr, EInputKeyEvent* InputKeyEvent) {
 	return oBInputKey(thisptr, InputKeyEvent);
 }
 
+/// <summary>
+/// Hook into Datamanager resolving a table reference
+/// </summary>
 DrEl* (__fastcall* oFind_b8)(DrMultiKeyTable* thisptr, unsigned __int64 key);
 DrEl* __fastcall hkFind_b8(DrMultiKeyTable* thisptr, unsigned __int64 key) {
 	return oFind_b8(thisptr, key);

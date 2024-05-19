@@ -1,6 +1,6 @@
-# BnsPlugin_OfflineTemplate
+# BnsPlugin_OfflineTemplate_BinEdit
 
-Template for BnS Plugins without git submodules.
+Template for BnS Plugins without git submodules and with datafile edit setup.
 
 ## Features
 - [x] No git submodules
