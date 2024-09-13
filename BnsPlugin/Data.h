@@ -156,14 +156,15 @@ namespace Data {
 		void* _aliasMap;
 		void* _elreader;
 		char padding2[0x54];
-		__declspec(align(4)) DrLoaderDef _loaderDefs[457];
+		__declspec(align(4)) DrLoaderDef _loaderDefs[458];
 	};
 }
 #pragma pack(pop)
 class DataHelper {
 public:
-	static DrDataTable* GetTable(Data::DataManager* dataManager, int tableId);
-	static DrDataTable* GetTable(Data::DataManager* dataManager, const wchar_t* tableName);
-	static __int16 GetTableId(Data::DataManager* dataManager, const wchar_t* tableName);
-	static const DrTableDef* GetTableDef(Data::DataManager* dataManager, const wchar_t* tableName);
+	static DrDataTable* GetTable(const Data::DataManager* dataManager, int tableId);
+	static DrDataTable* GetTable(const Data::DataManager* dataManager, const wchar_t* tableName);
+	static __int16 GetTableId(const Data::DataManager* dataManager, const wchar_t* tableName);
+	static const DrTableDef* GetTableDef(const Data::DataManager* dataManager, const wchar_t* tableName);
+	static DrEl* GetRecord(const Data::DataManager* dataManager, int tableId, __int64 key);
 };

@@ -1,7 +1,7 @@
 #include "Data.h"
 #include <iostream>
 
-DrDataTable* DataHelper::GetTable(Data::DataManager* dataManager, int tableId) {
+DrDataTable* DataHelper::GetTable(const Data::DataManager* dataManager, int tableId) {
 	auto index = tableId - 1;
 	if (dataManager == nullptr) {
 		return nullptr;
@@ -15,7 +15,7 @@ DrDataTable* DataHelper::GetTable(Data::DataManager* dataManager, int tableId) {
 	return dataManager->_loaderDefs[index].table;
 }
 
-DrDataTable* DataHelper::GetTable(Data::DataManager* dataManager, const wchar_t* tableName) {
+DrDataTable* DataHelper::GetTable(const Data::DataManager* dataManager, const wchar_t* tableName) {
 	if (dataManager == nullptr) {
 		return nullptr;
 	}
@@ -32,7 +32,7 @@ DrDataTable* DataHelper::GetTable(Data::DataManager* dataManager, const wchar_t*
 	return nullptr;
 }
 
-const DrTableDef* DataHelper::GetTableDef(Data::DataManager* dataManager, const wchar_t* tableName) {
+const DrTableDef* DataHelper::GetTableDef(const Data::DataManager* dataManager, const wchar_t* tableName) {
 	if (dataManager == nullptr) {
 		return nullptr;
 	}
@@ -49,7 +49,20 @@ const DrTableDef* DataHelper::GetTableDef(Data::DataManager* dataManager, const 
 	return nullptr;
 }
 
-__int16 DataHelper::GetTableId(Data::DataManager* dataManager, const wchar_t* tableName) {
+DrEl* DataHelper::GetRecord(const Data::DataManager* dataManager, int tableId, __int64 key)
+{
+	if (dataManager == nullptr) {
+		return nullptr;
+	}
+	auto table = GetTable(dataManager, tableId);
+	if (table == nullptr) {
+		return nullptr;
+	}
+	auto record = table->__vftable->Find_b8(table, key);
+	return record;
+}
+
+__int16 DataHelper::GetTableId(const Data::DataManager* dataManager, const wchar_t* tableName) {
 	if (dataManager == nullptr) {
 		return 0;
 	}
