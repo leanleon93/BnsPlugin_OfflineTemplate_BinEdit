@@ -19,9 +19,6 @@ private:
 	const std::unordered_set<std::wstring> usedTables = {
 		//L"skillshow3",
 	};
-	const std::unordered_map<std::wstring, __int32> confirmedMajorMinorVersions = {
-		//{ L"skillshow3", 655362 },
-	};
 
 	std::unordered_map<std::wstring, bool> versionCheckSuccess = {
 		//{ L"skillshow3", false },

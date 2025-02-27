@@ -1,7 +1,6 @@
 #include "PluginConfig.h"
 #include "SimpleIni.h"
-#include "xorstr.hpp";
-#include <string>
+#include "xorstr.hpp"
 #include <filesystem>
 #ifdef _DEBUG
 #include <iostream>
@@ -12,6 +11,14 @@ PluginConfig g_PluginConfig;
 PluginConfig::PluginConfig()
 {
 	Initialize();
+}
+
+std::string PluginConfig::GetDocumentsDirectory() {
+	if (const char* userProfile = std::getenv("USERPROFILE"); userProfile != nullptr) {
+		return std::string(userProfile) + "\\Documents";
+	}
+	MessageBox(nullptr, L"Could not find Documents directory.", L"AnimFilter Fatal Error", MB_OK | MB_ICONERROR);
+	return "";
 }
 
 void PluginConfig::Initialize() {
@@ -35,4 +42,10 @@ void PluginConfig::ReloadFromConfig()
 	{
 		ConfigValue = std::stoi(configIni.GetValue("SECTION", "Key"));
 	}
+	Loaded = true;
+}
+
+bool PluginConfig::IsLoaded() const
+{
+	return Loaded;
 }

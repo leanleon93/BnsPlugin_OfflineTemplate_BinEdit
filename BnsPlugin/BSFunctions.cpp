@@ -1,49 +1,41 @@
 #include "BSFunctions.h"
-#include <string>
 #include <iostream>
+#include <string>
 
-static BInstance* BNSInstance;
 
-BSMessaging::BSMessaging(uintptr_t* _BNSClientInstance, _AddInstantNotification addInstantNotification)
+void BSMessaging::SendGameMessage_s(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, const wchar_t* particleRef, const wchar_t* sound, char track, bool stopPreviousSound, bool headline2, bool boss_headline, bool chat, char category, const wchar_t* sound2)
 {
-	this->BNSClientInstance = _BNSClientInstance;
-	this->oAddInstantNotification = addInstantNotification;
-}
+	if (*BNSClientInstance) {
+		auto BNSInstance = *(BInstance**)BNSClientInstance;
 
-void BSMessaging::SendGameMessage_s(const wchar_t* text, const wchar_t* particleRef, const wchar_t* sound, char track, bool stopPreviousSound, bool headline2, bool boss_headline, bool chat, char category, const wchar_t* sound2)
-{
-	try {
-		if (*BNSClientInstance) {
-			BNSInstance = *(BInstance**)BNSClientInstance;
-
-			// Always check if oAddInstantNotification was defined otherwise you will cause a crash
-			if (*BNSInstance->GameWorld && oAddInstantNotification) {
+		// Always check if oAddInstantNotification was defined otherwise you will cause a crash
+		if (*BNSInstance->GameWorld && oAddInstantNotification) {
 #ifdef _DEBUG
-				std::wcout << "Sending message: " << text << std::endl;
+			std::wcout << "Sending message: " << text << std::endl;
 #endif // _DEBUG
-				oAddInstantNotification(BNSInstance->GameWorld, text, particleRef, sound, track, stopPreviousSound, headline2, boss_headline, chat, category, sound2);
-			}
-			else {
-				throw std::runtime_error("oAddInstantNotification not defined");
-			}
+			(*oAddInstantNotification)(BNSInstance->GameWorld, text, particleRef, sound, track, stopPreviousSound, headline2, boss_headline, chat, category, sound2);
 		}
 		else {
-			throw std::runtime_error("BNSClientInstance not defined");
+#ifdef _DEBUG
+			std::cout << "oAddInstantNotification not defined" << std::endl;
+#endif // _DEBUG
 		}
 	}
-	catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
+	else {
+#ifdef _DEBUG
+		std::cout << "BNSClientInstance not defined" << std::endl;
+#endif // _DEBUG
 	}
 }
 
-void BSMessaging::DisplaySystemChatMessage(const wchar_t* text, bool playSound)
+void BSMessaging::DisplaySystemChatMessage(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
 {
-	SendGameMessage_s(text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, true, 22, L"");
+	SendGameMessage_s(BNSClientInstance, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, true, 22, L"");
 }
 
-void BSMessaging::DisplayScrollingTextHeadline(const wchar_t* text, bool playSound)
+void BSMessaging::DisplayScrollingTextHeadline(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
 {
-	SendGameMessage_s(text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, false, 0, L"");
+	SendGameMessage_s(BNSClientInstance, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, false, 0, L"");
 }
 
 uintptr_t GetAddress(uintptr_t AddressOfCall, int index, int length)
@@ -74,7 +66,6 @@ std::string EngineKeyStateString(EngineKeyStateType type) {
 		return "EKS_AXIS";
 		break;
 	default:
-		return "UNKNOWN";
 		break;
 	}
 }

@@ -249,7 +249,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TRIALDLL_EXPORT;_CRT_SECURE_NO_WARNINGS;UNICODE;_UNICODE;_DEBUG;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours;$(ProjectDir)deps\BnsPluginTables\Generated\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
@@ -282,7 +282,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>TRIALDLL_EXPORT;_CRT_SECURE_NO_WARNINGS;UNICODE;_UNICODE;_DEBUG;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours;$(ProjectDir)deps\BnsPluginTables\Generated\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
@@ -317,7 +317,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;NOMINMAX;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_UNICODE;_WINDOWS;JM_XORSTR_DISABLE_AVX_INTRINSICS;PHNT_VERSION=PHNT_THRESHOLD;RESULT_DIAGNOSTICS_LEVEL=0;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vcpkg_installed\x64-windows\include;$(ProjectDir)deps;$(ProjectDir)deps\Detours;$(ProjectDir)deps\BnsPluginTables\Generated\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

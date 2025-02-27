@@ -2,7 +2,8 @@
 #include "PluginConfig.h"
 #include <unordered_map>
 
-extern BSMessaging* Messaging;
+extern uintptr_t* BNSClientInstancePtr;
+extern _AddInstantNotification oAddInstantNotification;
 
 template <typename Callable>
 void handleKeyEvent(EInputKeyEvent const* InputKeyEvent, int vKeyTarget, const Callable& onPress) {
@@ -48,15 +49,19 @@ void handleKeyEventWithModifiers(
 	}
 }
 
-bool(__fastcall* oBInputKey)(BInputKey* thisptr, EInputKeyEvent* InputKeyEvent);
-bool __fastcall hkBInputKey(BInputKey* thisptr, EInputKeyEvent* InputKeyEvent) {
-	//alt+p to reload config
-	handleKeyEventWithModifiers(InputKeyEvent, 0x50, true, false, false, []() {
-		g_PluginConfig.ReloadFromConfig();
-		auto message = LR"(<image imagesetpath="00027918.Tooltip_Alert" enablescale="true" scalerate="1.6" />PluginTemplate Config reloaded!)";
-		Messaging->DisplaySystemChatMessage(message, false);
-		});
-	return oBInputKey(thisptr, InputKeyEvent);
+bool(__fastcall* oBUIWorld_ProcessEvent)(uintptr_t* This, EInputKeyEvent* InputKeyEvent);
+bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKeyEvent) {
+	if (!InputKeyEvent)
+		return false;
+	if (!g_PluginConfig.IsLoaded()) return oBUIWorld_ProcessEvent(This, InputKeyEvent);
+	if (InputKeyEvent->vfptr->Id(InputKeyEvent) == 2) {
+		handleKeyEventWithModifiers(InputKeyEvent, 0x50, true, true, false, []() {
+			g_PluginConfig.ReloadFromConfig();
+			auto message = LR"(<image imagesetpath="00027918.Tooltip_Alert" enablescale="true" scalerate="1.6" />PluginTemplate Config reloaded!)";
+			BSMessaging::DisplaySystemChatMessage(BNSClientInstancePtr, &oAddInstantNotification, message, false);
+			});
+	}
+	return oBUIWorld_ProcessEvent(This, InputKeyEvent);
 }
 
 /// <summary>

@@ -1,14 +1,18 @@
 #pragma once
 #include <cstdint>
+#include <string>
 
 class PluginConfig {
 public:
+	PluginConfig();
 	int32_t ConfigValue;
 
-	const wchar_t* ConfigPath;
-	PluginConfig();
+	bool IsLoaded() const;
 	void ReloadFromConfig();
 private:
+	const wchar_t* ConfigPath;
+	bool Loaded;
+	static std::string GetDocumentsDirectory();
 	void Initialize();
 };
 

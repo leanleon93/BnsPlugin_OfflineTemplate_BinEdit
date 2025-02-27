@@ -1,9 +1,12 @@
 #include "DatafileService.h"
 #include <algorithm>
 #include <Windows.h>
+#include <EU/BnsTableNames.h> //TODO: Check for your region
 #ifdef _DEBUG
 #include <iostream>
 #endif // _DEBUG
+
+using namespace BnsTables;
 
 DatafileService g_DatafileService;
 
@@ -55,11 +58,14 @@ bool DatafileService::CompatabilityCheck() {
 		printf("\tAddress of %s is %p\n", "type", &tableDef->type);
 		std::cout << std::endl;
 #endif // _DEBUG
-		auto confirmedVersion = confirmedMajorMinorVersions.find(tableName);
-		if (confirmedVersion == confirmedMajorMinorVersions.end()) {
-			continue;
-		}
-		if (tableDef->version.ver == confirmedVersion->second) {
+		auto confirmedVersion = EU::TableNames::GetTableVersion(EU::TableNames::GetTableId(tableName));
+#ifdef _DEBUG
+		std::wcout << "Confirmed version for " << tableName << " is " << confirmedVersion.Version.VersionKey << std::endl;
+		std::wcout << "Confirmed major version for " << tableName << " is " << confirmedVersion.Version.MajorVersion << std::endl;
+		std::wcout << "Confirmed minor version for " << tableName << " is " << confirmedVersion.Version.MinorVersion << std::endl;
+		std::cout << std::endl;
+#endif // _DEBUG
+		if (tableDef->version.ver == confirmedVersion.Version.VersionKey) {
 			versionCheckSuccess[tableName] = true;
 		}
 	}

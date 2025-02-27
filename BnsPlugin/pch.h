@@ -23,5 +23,8 @@
 #include <wil/win32_helpers.h>
 #include <wil/resource.h>
 #include <wil/result.h>
-
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
+#include "DrEl.h"
 #endif //PCH_H
