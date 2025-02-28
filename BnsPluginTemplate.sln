@@ -7,26 +7,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BnsPlugin", "BnsPlugin\BnsP
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Debug161|x64 = Debug161|x64
-		Debug161|x86 = Debug161|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+		DebugEU|x64 = DebugEU|x64
+		DebugKR|x64 = DebugKR|x64
+		ReleaseEU|x64 = ReleaseEU|x64
+		ReleaseKR|x64 = ReleaseKR|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug|x64.ActiveCfg = Debug|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug|x64.Build.0 = Debug|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug|x86.ActiveCfg = Debug|Win32
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug|x86.Build.0 = Debug|Win32
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug161|x64.ActiveCfg = Debug161|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug161|x64.Build.0 = Debug161|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug161|x86.ActiveCfg = Debug161|Win32
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Debug161|x86.Build.0 = Debug161|Win32
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Release|x64.ActiveCfg = Release|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Release|x64.Build.0 = Release|x64
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Release|x86.ActiveCfg = Release|Win32
-		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.Release|x86.Build.0 = Release|Win32
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.DebugEU|x64.ActiveCfg = DebugEU|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.DebugEU|x64.Build.0 = DebugEU|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.DebugKR|x64.ActiveCfg = DebugKR|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.DebugKR|x64.Build.0 = DebugKR|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.ReleaseEU|x64.ActiveCfg = ReleaseEU|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.ReleaseEU|x64.Build.0 = ReleaseEU|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.ReleaseKR|x64.ActiveCfg = ReleaseKR|x64
+		{FC9900C8-8CCB-487C-89F8-42FFE5C9AC9F}.ReleaseKR|x64.Build.0 = ReleaseKR|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -57,8 +57,8 @@ bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKe
 	if (InputKeyEvent->vfptr->Id(InputKeyEvent) == 2) {
 		handleKeyEventWithModifiers(InputKeyEvent, 0x50, true, true, false, []() {
 			g_PluginConfig.ReloadFromConfig();
-			auto message = LR"(<image imagesetpath="00027918.Tooltip_Alert" enablescale="true" scalerate="1.6" />PluginTemplate Config reloaded!)";
-			BSMessaging::DisplaySystemChatMessage(BNSClientInstancePtr, &oAddInstantNotification, message, false);
+			//auto message = LR"(<image imagesetpath="00027918.Tooltip_Alert" enablescale="true" scalerate="1.6" />PluginTemplate Config reloaded!)";
+			//BSMessaging::DisplaySystemChatMessage(BNSClientInstancePtr, &oAddInstantNotification, message, false);
 			});
 	}
 	return oBUIWorld_ProcessEvent(This, InputKeyEvent);
@@ -70,4 +70,12 @@ bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKe
 DrEl* (__fastcall* oFind_b8)(DrMultiKeyTable* thisptr, unsigned __int64 key);
 DrEl* __fastcall hkFind_b8(DrMultiKeyTable* thisptr, unsigned __int64 key) {
 	return oFind_b8(thisptr, key);
+}
+
+/// <summary>
+/// Hook into Datamanager resolving a table reference
+/// </summary>
+DrEl* (__fastcall* oFind_b8AutoId)(DrMultiKeyTable* thisptr, unsigned __int64 key);
+DrEl* __fastcall hkFind_b8AutoId(DrMultiKeyTable* thisptr, unsigned __int64 key) {
+	return oFind_b8AutoId(thisptr, key);
 }

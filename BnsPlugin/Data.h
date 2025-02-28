@@ -156,7 +156,7 @@ namespace Data {
 		void* _aliasMap;
 		void* _elreader;
 		char padding2[0x54];
-		__declspec(align(4)) DrLoaderDef _loaderDefs[458];
+		__declspec(align(4)) DrLoaderDef _loaderDefs[500];
 	};
 }
 #pragma pack(pop)
