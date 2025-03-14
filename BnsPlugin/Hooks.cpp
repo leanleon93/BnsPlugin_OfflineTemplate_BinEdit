@@ -49,6 +49,8 @@ void handleKeyEventWithModifiers(
 	}
 }
 
+World* (__fastcall* BNSClient_GetWorld)();
+
 bool(__fastcall* oBUIWorld_ProcessEvent)(uintptr_t* This, EInputKeyEvent* InputKeyEvent);
 bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKeyEvent) {
 	if (!InputKeyEvent)
@@ -57,8 +59,6 @@ bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKe
 	if (InputKeyEvent->vfptr->Id(InputKeyEvent) == 2) {
 		handleKeyEventWithModifiers(InputKeyEvent, 0x50, true, true, false, []() {
 			g_PluginConfig.ReloadFromConfig();
-			//auto message = LR"(<image imagesetpath="00027918.Tooltip_Alert" enablescale="true" scalerate="1.6" />PluginTemplate Config reloaded!)";
-			//BSMessaging::DisplaySystemChatMessage(BNSClientInstancePtr, &oAddInstantNotification, message, false);
 			});
 	}
 	return oBUIWorld_ProcessEvent(This, InputKeyEvent);
