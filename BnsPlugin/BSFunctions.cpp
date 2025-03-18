@@ -3,17 +3,16 @@
 #include <string>
 
 
-void BSMessaging::SendGameMessage_s(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, const wchar_t* particleRef, const wchar_t* sound, char track, bool stopPreviousSound, bool headline2, bool boss_headline, bool chat, char category, const wchar_t* sound2)
+void BSMessaging::SendGameMessage_s(void* GameWorld, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, const wchar_t* particleRef, const wchar_t* sound, char track, bool stopPreviousSound, bool headline2, bool boss_headline, bool chat, char category, const wchar_t* sound2)
 {
-	if (*BNSClientInstance) {
-		auto BNSInstance = *(BInstance**)BNSClientInstance;
+	if (GameWorld != nullptr) {
 
 		// Always check if oAddInstantNotification was defined otherwise you will cause a crash
-		if (*BNSInstance->GameWorld && oAddInstantNotification) {
+		if (oAddInstantNotification) {
 #ifdef _DEBUG
 			std::wcout << "Sending message: " << text << std::endl;
 #endif // _DEBUG
-			(*oAddInstantNotification)(BNSInstance->GameWorld, text, particleRef, sound, track, stopPreviousSound, headline2, boss_headline, chat, category, sound2);
+			(*oAddInstantNotification)(GameWorld, text, particleRef, sound, track, stopPreviousSound, headline2, boss_headline, chat, category, sound2);
 		}
 		else {
 #ifdef _DEBUG
@@ -28,14 +27,14 @@ void BSMessaging::SendGameMessage_s(uintptr_t* BNSClientInstance, _AddInstantNot
 	}
 }
 
-void BSMessaging::DisplaySystemChatMessage(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
+void BSMessaging::DisplaySystemChatMessage(void* GameWorld, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
 {
-	SendGameMessage_s(BNSClientInstance, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, true, 22, L"");
+	SendGameMessage_s(GameWorld, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, true, 22, L"");
 }
 
-void BSMessaging::DisplayScrollingTextHeadline(uintptr_t* BNSClientInstance, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
+void BSMessaging::DisplayScrollingTextHeadline(void* GameWorld, _AddInstantNotification* oAddInstantNotification, const wchar_t* text, bool playSound)
 {
-	SendGameMessage_s(BNSClientInstance, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, false, 0, L"");
+	SendGameMessage_s(GameWorld, oAddInstantNotification, text, L"", playSound ? L"00003805.Signal_UI.S_Sys_FindNewSpaceCue" : L"", 0, playSound, false, false, false, 0, L"");
 }
 
 uintptr_t GetAddress(uintptr_t AddressOfCall, int index, int length)
@@ -69,5 +68,3 @@ std::string EngineKeyStateString(EngineKeyStateType type) {
 		break;
 	}
 }
-
-static_assert(offsetof(BInstance, PresentationWorld) == 0xB8);

@@ -33,7 +33,6 @@ static void WINAPI InitConfigValues() {
 	g_PluginConfig.ReloadFromConfig();
 }
 
-uintptr_t* BNSClientInstancePtr;
 _AddInstantNotification oAddInstantNotification;
 
 /// <summary>
@@ -45,17 +44,6 @@ static void WINAPI InitMessaging() {
 #ifdef _DEBUG
 	std::cout << "InitMessaging" << std::endl;
 #endif // _DEBUG
-
-#ifdef _DEBUG
-	std::cout << "Searching BnsClientInstancePtr" << std::endl;
-#endif // _DEBUG
-
-	if (auto result = std::search(data.begin(), data.end(), pattern_searcher(xorstr_("48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 48 8B 80 ?? ?? ?? ?? C3 C3 CC CC CC CC CC CC CC CC CC CC CC 48 8B 05"))); result != data.end()) {
-		auto getWorldAddress = (uintptr_t)&result[0];
-		auto bnsclientInstanceOffset = *reinterpret_cast<int*>(getWorldAddress + 3);
-		auto bnsclientInstanceAddress = getWorldAddress + bnsclientInstanceOffset + 7;
-		BNSClientInstancePtr = reinterpret_cast<uintptr_t*>(bnsclientInstanceAddress);
-	}
 
 #ifdef _DEBUG
 	std::cout << "Searching AddInstantNotification" << std::endl;
@@ -78,7 +66,6 @@ static void WINAPI InitMessaging() {
 #endif // _DEBUG
 
 #ifdef _DEBUG
-	printf("Address of BNSInstance is %p\n", (void*)BNSClientInstancePtr);
 	printf("Address of AddInstantNotification is %p\n", (void*)oAddInstantNotification);
 	std::cout << std::endl;
 #endif // _DEBUG

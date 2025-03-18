@@ -2,7 +2,6 @@
 #include "PluginConfig.h"
 #include <unordered_map>
 
-extern uintptr_t* BNSClientInstancePtr;
 extern _AddInstantNotification oAddInstantNotification;
 
 template <typename Callable>
@@ -59,6 +58,9 @@ bool __fastcall hkBUIWorld_ProcessEvent(uintptr_t* This, EInputKeyEvent* InputKe
 	if (InputKeyEvent->vfptr->Id(InputKeyEvent) == 2) {
 		handleKeyEventWithModifiers(InputKeyEvent, 0x50, true, true, false, []() {
 			g_PluginConfig.ReloadFromConfig();
+			auto message = LR"(BnsPlugin Config Reloaded)";
+			auto gameWorld = BNSClient_GetWorld();
+			BSMessaging::DisplaySystemChatMessage(gameWorld, &oAddInstantNotification, message, false);
 			});
 	}
 	return oBUIWorld_ProcessEvent(This, InputKeyEvent);
