@@ -1,6 +1,8 @@
 #pragma once
 #include "DrEl.h"
 #include <map>
+#include "EU/BnsTableNames.h"
+#include "KR/BnsTableNames.h"
 
 struct DataChunk
 {
@@ -156,7 +158,11 @@ namespace Data {
 		void* _aliasMap;
 		void* _elreader;
 		char padding2[0x54];
-		__declspec(align(4)) DrLoaderDef _loaderDefs[500];
+#ifdef _BNSKR
+		__declspec(align(4)) DrLoaderDef _loaderDefs[BnsTables::KR::TableCount];
+#elif _BNSEU
+		__declspec(align(4)) DrLoaderDef _loaderDefs[BnsTables::EU::TableCount];
+#endif
 	};
 }
 #pragma pack(pop)
