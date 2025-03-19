@@ -27,7 +27,7 @@ void PluginConfig::Initialize() {
 	std::filesystem::path base(fullpath);
 	std::wstring inipath(base.parent_path());
 	inipath += xorstr_(L"/plugins/templateconfig.ini");
-	ConfigPath = inipath.c_str();
+	ConfigPath = inipath;
 #ifdef _DEBUG
 	std::wcout << ConfigPath << std::endl;
 #endif // _DEBUG
@@ -37,7 +37,7 @@ void PluginConfig::ReloadFromConfig()
 {
 	CSimpleIniA configIni;
 	configIni.SetUnicode();
-	configIni.LoadFile(ConfigPath);
+	configIni.LoadFile(ConfigPath.c_str());
 	if (configIni.GetValue("SECTION", "Key"))
 	{
 		ConfigValue = std::stoi(configIni.GetValue("SECTION", "Key"));

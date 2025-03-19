@@ -10,7 +10,7 @@ public:
 	bool IsLoaded() const;
 	void ReloadFromConfig();
 private:
-	const wchar_t* ConfigPath;
+	std::wstring ConfigPath;
 	bool Loaded;
 	static std::string GetDocumentsDirectory();
 	void Initialize();
