@@ -75,9 +75,9 @@ DrEl* __fastcall hkFind_b8(DrMultiKeyTable* thisptr, unsigned __int64 key) {
 }
 
 /// <summary>
-/// Hook into Datamanager resolving a table reference
+/// Hook into Datamanager resolving a table reference with autokey
 /// </summary>
-DrEl* (__fastcall* oFind_b8AutoId)(DrMultiKeyTable* thisptr, unsigned __int64 key);
-DrEl* __fastcall hkFind_b8AutoId(DrMultiKeyTable* thisptr, unsigned __int64 key) {
-	return oFind_b8AutoId(thisptr, key);
+DrEl* (__fastcall* oFind_b8AutoId)(DrMultiKeyTable* thisptr, unsigned __int64 autokey);
+DrEl* __fastcall hkFind_b8AutoId(DrMultiKeyTable* thisptr, unsigned __int64 autokey) {
+	return oFind_b8AutoId(thisptr, autokey);
 }

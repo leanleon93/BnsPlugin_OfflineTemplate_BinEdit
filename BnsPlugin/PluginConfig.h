@@ -1,19 +1,18 @@
 #pragma once
-#include <cstdint>
 #include <string>
 
 class PluginConfig {
 public:
 	PluginConfig();
-	int32_t ConfigValue;
-
-	bool IsLoaded() const;
-	void ReloadFromConfig();
-private:
-	std::wstring ConfigPath;
-	bool Loaded;
-	static std::string GetDocumentsDirectory();
 	void Initialize();
+	void ReloadFromConfig();
+	bool IsLoaded() const;
+	static constexpr const wchar_t* ConfigFileName = L"templateconfig.ini"; // Compile-time constant
+
+	std::wstring ConfigPath;
+	int ConfigValue = 0;
+private:
+	bool Loaded = false;
 };
 
 extern PluginConfig g_PluginConfig;

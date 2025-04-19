@@ -1,8 +1,11 @@
 #pragma once
 #include "Data.h"
-#include <unordered_set>
-#include <unordered_map>
+#include <array>
 #include <string>
+
+enum UsedTable {
+	SkillShow3,
+};
 
 class DatafileService {
 public:
@@ -11,18 +14,18 @@ public:
 	bool IsCriticalFail() const;
 	Data::DataManager* GetDataManager();
 	void SetDataManagerPtr(__int64 const* ptr);
+	__int16 __fastcall GetTableId(const UsedTable usedTable) const;
 private:
 	__int64 const* dataManagerPtr;
 	bool SetupComplete;
 	bool CriticalFail;
 	bool CompatabilityCheck();
-	const std::unordered_set<std::wstring> usedTables = {
-		//L"skillshow3",
-	};
 
-	std::unordered_map<std::wstring, bool> versionCheckSuccess = {
-		//{ L"skillshow3", false },
-	};
+	//ATTENTION: Has to be in the same order as the enum!
+	const std::array<std::wstring, 1> usedTableNames = { L"skillshow3" }; // Adjust size if more enums are added 
+	std::array<__int16, 1> tableIds = { -1 }; // Initialize with default values (-1 for "not found")
+	std::array<bool, 1> versionCheckSuccess = { false }; // Initialize with default values (false)
+
 	bool AllVersionsSuccess() const;
 };
 

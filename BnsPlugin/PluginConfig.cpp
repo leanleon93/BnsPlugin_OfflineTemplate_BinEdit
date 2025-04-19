@@ -13,20 +13,21 @@ PluginConfig::PluginConfig()
 	Initialize();
 }
 
-std::string PluginConfig::GetDocumentsDirectory() {
-	if (const char* userProfile = std::getenv("USERPROFILE"); userProfile != nullptr) {
-		return std::string(userProfile) + "\\Documents";
-	}
-	MessageBox(nullptr, L"Could not find Documents directory.", L"AnimFilter Fatal Error", MB_OK | MB_ICONERROR);
-	return "";
-}
+//std::string PluginConfig::GetDocumentsDirectory() {
+//	if (const char* userProfile = std::getenv("USERPROFILE"); userProfile != nullptr) {
+//		return std::string(userProfile) + "\\Documents";
+//	}
+//	MessageBox(nullptr, L"Could not find Documents directory.", L"AnimFilter Fatal Error", MB_OK | MB_ICONERROR);
+//	return "";
+//}
 
 void PluginConfig::Initialize() {
 	WCHAR fullpath[MAX_PATH];
 	GetModuleFileNameW(nullptr, fullpath, MAX_PATH);
 	std::filesystem::path base(fullpath);
 	std::wstring inipath(base.parent_path());
-	inipath += xorstr_(L"/plugins/templateconfig.ini");
+	inipath += L"/plugins/";
+	inipath += ConfigFileName; // Use the compile-time constant
 	ConfigPath = inipath;
 #ifdef _DEBUG
 	std::wcout << ConfigPath << std::endl;
@@ -37,10 +38,16 @@ void PluginConfig::ReloadFromConfig()
 {
 	CSimpleIniA configIni;
 	configIni.SetUnicode();
-	configIni.LoadFile(ConfigPath.c_str());
-	if (configIni.GetValue("SECTION", "Key"))
-	{
-		ConfigValue = std::stoi(configIni.GetValue("SECTION", "Key"));
+	SI_Error rc = configIni.LoadFile(ConfigPath.c_str());
+	if (rc < 0) {
+#ifdef _DEBUG
+		printf("Configuration file not found or could not be loaded: %ls\n", ConfigPath.c_str());
+#endif // _DEBUG
+		Loaded = false;
+		return;
+	}
+	if (const char* value = configIni.GetValue("SECTION", "Key")) {
+		ConfigValue = std::stoi(value);
 	}
 	Loaded = true;
 }
