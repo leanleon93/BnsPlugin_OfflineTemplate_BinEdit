@@ -1,6 +1,7 @@
 #include "Hooks.h"
 #include "PluginConfig.h"
 #include <unordered_map>
+#include "DatafileService.h"
 
 extern _AddInstantNotification oAddInstantNotification;
 
